@@ -1,6 +1,9 @@
-import { IChart } from '../../src'
+import * as React from 'react'
 
-export const chartSimple: IChart = {
+import { FlowChartWithState, IChart } from '../src'
+import { Page } from './components'
+
+const chartSimpleWithLinkColors: IChart = {
   offset: {
     x: 0,
     y: 0,
@@ -19,14 +22,8 @@ export const chartSimple: IChart = {
           id: 'port1',
           type: 'output',
           properties: {
-            value: 'yes',
-          },
-        },
-        port2: {
-          id: 'port2',
-          type: 'output',
-          properties: {
             value: 'no',
+            linkColor: '#FFCC00',
           },
         },
       },
@@ -46,6 +43,16 @@ export const chartSimple: IChart = {
         port2: {
           id: 'port2',
           type: 'output',
+          properties: {
+            linkColor: '#63D471',
+          },
+        },
+        port3: {
+          id: 'port3',
+          type: 'output',
+          properties: {
+            linkColor: '#F8333C',
+          },
         },
       },
     },
@@ -91,14 +98,11 @@ export const chartSimple: IChart = {
       id: 'link1',
       from: {
         nodeId: 'node1',
-        portId: 'port2',
+        portId: 'port1',
       },
       to: {
         nodeId: 'node2',
         portId: 'port1',
-      },
-      properties: {
-        label: 'example link label',
       },
     },
     link2: {
@@ -111,15 +115,12 @@ export const chartSimple: IChart = {
         nodeId: 'node3',
         portId: 'port1',
       },
-      properties: {
-        label: 'another example link label',
-      },
     },
     link3: {
       id: 'link3',
       from: {
         nodeId: 'node2',
-        portId: 'port2',
+        portId: 'port3',
       },
       to: {
         nodeId: 'node4',
@@ -129,4 +130,12 @@ export const chartSimple: IChart = {
   },
   selected: {},
   hovered: {},
+}
+
+export const LinkColors = () => {
+  return (
+    <Page>
+      <FlowChartWithState initialValue={chartSimpleWithLinkColors} />
+    </Page>
+  )
 }

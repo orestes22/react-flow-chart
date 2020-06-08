@@ -1,4 +1,4 @@
-import { DraggableData } from 'react-draggable'
+import { DraggableData, DraggableEvent } from 'react-draggable'
 import { IChart, INode, IPort } from './chart'
 import { IConfig } from './config'
 import { IOffset, IPosition, ISize } from './generics'
@@ -8,7 +8,7 @@ export type IStateCallback<T extends (...args: any) => any> = (...params: Parame
 
 export interface IOnDragNodeInput {
   config?: IConfig
-  event: MouseEvent
+  event: DraggableEvent
   data: DraggableData
   id: string
 }
@@ -17,17 +17,24 @@ export type IOnDragNode = (input: IOnDragNodeInput) => void
 
 export interface IOnDragCanvasInput {
   config?: IConfig
-  event: MouseEvent
-  data: DraggableData
+  data: any
 }
 
 export type IOnDragCanvas = (input: IOnDragCanvasInput) => void
 
-export interface IOnDragNodeStopInput { config?: IConfig, event: MouseEvent, data: DraggableData, id: string }
+export interface IOnDragNodeStopInput {
+  config?: IConfig
+  event: MouseEvent
+  data: DraggableData
+  id: string
+}
 
 export type IOnDragNodeStop = (input: IOnDragNodeStopInput) => void
 
-export interface IOnDragCanvasStopInput { config?: IConfig, event: MouseEvent, data: DraggableData }
+export interface IOnDragCanvasStopInput {
+  config?: IConfig
+  data: any
+}
 
 export type IOnDragCanvasStop = (input: IOnDragCanvasStopInput) => void
 
@@ -56,8 +63,8 @@ export type IOnLinkStart = (input: IOnLinkBaseEvent) => void
 
 export interface IOnLinkMoveInput extends IOnLinkBaseEvent {
   toPosition: {
-    x: number;
-    y: number;
+    x: number
+    y: number,
   }
 }
 export type IOnLinkMove = (input: IOnLinkMoveInput) => void
@@ -87,6 +94,8 @@ export interface INodeBaseInput {
 
 export type IOnNodeClick = (input: INodeBaseInput) => void
 
+export type IOnNodeDoubleClick = (input: INodeBaseInput) => void
+
 export interface IOnNodeSizeChangeInput extends INodeBaseInput {
   size: ISize
 }
@@ -104,3 +113,5 @@ export interface IOnCanvasDropInput {
 }
 
 export type IOnCanvasDrop = (input: IOnCanvasDropInput) => void
+
+export type IOnZoomCanvas = (input: { config?: IConfig; data: any }) => void
